@@ -68,8 +68,8 @@ def main():
                 print(f"The price for {symbol_name} is currently {symbol_price}.")
 
 if __name__ == "__main__":
-    # Set prices.txt to ""
-    save_to_json("prices.txt", "")
+    # Set prices.txt to None
+    save_to_json("prices.txt", None)
     # Create symbols.txt is does not exist
     with open("symbols.txt", "w+") as file:
         file.write("")
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     while True:
         # Menu
-        user_input = str(input("[0] Begin monitoring prices\n[1] Select symbol pairings to monitor\n"))
+        user_input = str(input("[0] Begin monitoring prices\n[1] View current symbol pairings\n[2] Select symbol pairings to monitor\n"))
 
         # Option 1: Start monitoring
         if user_input == "0":
@@ -92,8 +92,19 @@ if __name__ == "__main__":
                 # Wait x seconds until executing function main()
                 time.sleep(interval)
 
-        # Option 2: Add pairings
+        # Option 2: View pairings
         elif user_input == "1":
+            while True:
+                # Set variable symbols to current symbol pairings
+                symbols = get_user_symbols("symbols.txt")
+                if symbols:
+                    print(" ".join(symbols))
+                    break
+                else:
+                    print("There are currently no symbol pairings.")
+                    break
+        # Option 3: Add pairings
+        elif user_input == "2":
             while True:
                 # Ask user for symbol pairings
                 save_user_symbols("symbols.txt", list(input('Enter symbol pairings seperated by spaces (example: "XRPETH ETHBTC")\n').split(" ")))
