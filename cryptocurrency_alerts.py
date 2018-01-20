@@ -11,7 +11,7 @@ def save_user_symbols(filename, symbols):
     with open(filename, "w") as file:
         for symbol in symbols:
             file.write(f"{symbol}\n")
-        file.close
+        file.close()
 
 
 def main():
@@ -68,13 +68,19 @@ def main():
                 print(f"The price for {symbol_name} is currently {symbol_price}.")
 
 if __name__ == "__main__":
+    # Set prices.txt to ""
+    save_to_json("prices.txt", "")
+    # Create symbols.txt is does not exist
+    with open("symbols.txt", "w+") as file:
+        file.write("")
+        file.close()
+
     while True:
         # Menu
         user_input = str(input("[0] Begin monitoring prices\n[1] Select symbol pairings to monitor\n"))
 
         # Option 1: Start monitoring
         if user_input == "0":
-            save_to_json("prices.txt", None)
             
             # Ask user for interval to repeat function main() at
             interval = int(input("How often do you want to check for new prices?\n"))
