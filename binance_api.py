@@ -1,4 +1,4 @@
-# https://api.binance.com/api/v1/ticker/price?symbol=XRPETH
+# Binance API documentation: https://github.com/binance-exchange/binance-official-api-docs
 
 import urllib.request, json
 
@@ -28,7 +28,7 @@ def read_from_json(filename):
     # Read from file
     with open(filename, "r") as file:
         content = json.load(file)
-        return content
+    return content
 
 def get_symbol(all_prices, symbol):
     # Filter specific symbol dictionary from variable all_prices (function get_binance_all_prices())

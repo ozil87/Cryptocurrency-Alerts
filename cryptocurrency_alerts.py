@@ -1,9 +1,22 @@
 from binance_api import get_binance_time, get_binance_all_prices, get_symbol, save_to_json, read_from_json
 import time
 
+def get_user_symbols(filename):
+    with open(filename, "r") as file:
+        content = file.read().splitlines()
+        file.close()
+    return content
+
+def save_user_symbols(filename, symbols):
+    with open(filename, "w") as file:
+        for symbol in symbols:
+            file.write(f"{symbol}\n")
+        file.close
+
+
 def main():
     # Set variable symbols to list of desired symbols
-    symbols = ["XRPETH", "NEOETH"]
+    symbols = get_user_symbols("symbols.txt")
 
     # Set variable time to current server time from Binance API
     current_server_time = get_binance_time()
@@ -55,10 +68,27 @@ def main():
                 print(f"The price for {symbol_name} is currently {symbol_price}.")
 
 if __name__ == "__main__":
-    save_to_json("prices.txt", None)
-    # Loop function main()
     while True:
-        # Execute function main()
-        main()
-        # Wait x seconds until executing function main()
-        time.sleep(10)
+        # Menu
+        user_input = str(input("[0] Begin monitoring prices\n[1] Select symbol pairings to monitor\n"))
+
+        # Option 1: Start monitoring
+        if user_input == "0":
+            save_to_json("prices.txt", None)
+            
+            # Ask user for interval to repeat function main() at
+            interval = int(input("How often do you want to check for new prices?\n"))
+            
+            # Loop function main()   
+            while True:
+                # Execute function main()
+                main()
+                # Wait x seconds until executing function main()
+                time.sleep(interval)
+
+        # Option 2: Add pairings
+        elif user_input == "1":
+            while True:
+                # Ask user for symbol pairings
+                save_user_symbols("symbols.txt", list(input('Enter symbol pairings seperated by spaces (example: "XRPETH ETHBTC")\n').split(" ")))
+                break
