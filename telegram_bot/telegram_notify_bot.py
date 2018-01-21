@@ -18,7 +18,7 @@ def save_user_symbols(filename, symbols):
             file.write(f"{symbol}\n")
         file.close()
 
-TOKEN = "542330586:AAGCxo8hOKMTCLcXz-Ji5W7BzkuIf-7_qrk"
+TOKEN = ""
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 def get_url(url):
