@@ -4,10 +4,21 @@
 # Port of cryptocurrency_alerts.py to a Telegram bot
 
 from binance_api import get_binance_time, get_binance_all_prices, get_symbol, save_to_json, read_from_json
-from cryptocurrency_alerts import get_user_symbols, save_user_symbols
 import json, requests, time, urllib, os.path
 
-TOKEN = ""
+def get_user_symbols(filename):
+    with open(filename, "r") as file:
+        content = file.read().splitlines()
+        file.close()
+    return content
+
+def save_user_symbols(filename, symbols):
+    with open(filename, "w") as file:
+        for symbol in symbols:
+            file.write(f"{symbol}\n")
+        file.close()
+
+TOKEN = "542330586:AAGCxo8hOKMTCLcXz-Ji5W7BzkuIf-7_qrk"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 def get_url(url):
