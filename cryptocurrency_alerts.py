@@ -1,5 +1,7 @@
+# CLI for cryptocurrency alerts
+
 from binance_api import get_binance_time, get_binance_all_prices, get_symbol, save_to_json, read_from_json
-import time
+import time, os.path
 
 def get_user_symbols(filename):
     with open(filename, "r") as file:
@@ -70,10 +72,11 @@ def main():
 if __name__ == "__main__":
     # Set prices.txt to None
     save_to_json("prices.txt", None)
-    # Create symbols.txt is does not exist
-    with open("symbols.txt", "w+") as file:
-        file.write("")
-        file.close()
+    # Create symbols.txt if it does not exist
+    if os.path.isfile("symbols.txt") == False:
+        with open("symbols.txt", "w+") as file:
+            file.write("")
+            file.close()
 
     while True:
         # Menu
