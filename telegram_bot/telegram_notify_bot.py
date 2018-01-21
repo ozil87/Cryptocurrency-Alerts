@@ -101,6 +101,7 @@ def main():
                 # Print symbol name and symbol price
                 message_list.append(f"The price for {symbol_name} is currently {symbol_price}.")
         # Send complete message
+        print(f"Sending a message at {current_server_time}.")
         send_message("\n".join(message_list), chat)
 
 if __name__ == '__main__':
